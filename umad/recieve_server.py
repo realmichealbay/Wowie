@@ -27,9 +27,9 @@ def make_noise(specific_noise):
     volume.SetMasterVolumeLevel(-2.0, None)
     volume.SetMute(0, None)
     if specific_noise:
-       winsound.PlaySound(specific_noise,winsound.SND_FILENAME)
+        winsound.PlaySound("audio/" + specific_noise,winsound.SND_FILENAME)
     else:
-        winsound.PlaySound(filenames[rand.randint(0,len(filenames)-1)], winsound.SND_FILENAME) 
+        winsound.PlaySound("audio/" + filenames[rand.randint(0,len(filenames)-1)], winsound.SND_FILENAME) 
 
 def process_data(data):
     if data:
@@ -46,10 +46,11 @@ def start_server(host,port):
             with conn:
                 print("Connected by ", addr)
                 data = conn.recv(1024).decode()
+                data = data.lower()
                 if not data:
                     continue
                 print("Recieved Data:",data)
-                if data == "RANDOM":
+                if data == "random":
                     make_noise("")
                 elif data in filenames:
                     make_noise(str(data))
