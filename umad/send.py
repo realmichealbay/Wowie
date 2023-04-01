@@ -1,5 +1,12 @@
 # client 
 import socket
+
+testing_ip = "127.0.0.1"
+ip_addresses = {
+    "jacob":"10.35.42.176"
+}
+
+
 def send_data(host,port,data):
     with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as client_socket:
         client_socket.connect((host,port))
@@ -8,7 +15,7 @@ def send_data(host,port,data):
         print(response)
 
 if __name__ == "__main__":
-    host = "10.35.42.176"
+    host = testing_ip
     port = 8005
     data = input(": ")
     send_data(host,port,data)
