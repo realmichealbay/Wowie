@@ -2,6 +2,10 @@
 import socket
 import os
 import platform
+import prompt_toolkit
+from prompt_toolkit import prompt
+from prompt_toolkit.completion import WordCompleter
+from prompt_toolkit.shortcuts import CompleteStyle
 
 filenames = ["aughhhhh","awoogatest","crappedpants","dangeralarm",
 "dixieland car horn","dryfart","reverbfart","tacobellloud",
@@ -13,6 +17,10 @@ ip_addresses = {
     "jacob":"10.35.42.176",
     "loopback":"127.0.0.1"
 }
+
+file_completer = WordCompleter(filenames, ignore_case=True)
+ip_completer = WordCompleter(ip_addresses.keys(),ignore_case=True)
+
 
 def clear_screen():
     if platform.system().lower() == "windows":
@@ -38,7 +46,8 @@ if __name__ == "__main__":
     clear_screen()
     print_ip(ip_addresses)
     print("-----------------Select ip---------------")
-    ip = input(":")
+    selected_ip = prompt(": ",completer=ip_completer,complete_style=CompleteStyle.MULTI_COLUMN)
+    ip = selected_ip
     host = ip_addresses.get(ip)
     port = 8005
     clear_screen()
@@ -46,6 +55,7 @@ if __name__ == "__main__":
     printfilenames(filenames)
     print("random")
     print("-----------------------------------------")
-    data = input("Choice: ")
+    selected_file = prompt(": ",completer=file_completer,complete_style=CompleteStyle.MULTI_COLUMN)
+    data = selected_file
     send_data(host,port,data)
 

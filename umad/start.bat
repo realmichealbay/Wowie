@@ -5,6 +5,7 @@ copy Startup\startup_main.vbs C:\Users\%USERNAME%\AppData\Roaming\Microsoft\Wind
 
 echo installing dependencies
 
+pip install prompt_toolkit
 pip install pycaw
 pip install comtypes
 pip install playsound==1.2.2
