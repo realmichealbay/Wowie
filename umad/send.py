@@ -58,4 +58,4 @@ if __name__ == "__main__":
     selected_file = prompt(": ",completer=file_completer,complete_style=CompleteStyle.MULTI_COLUMN)
     data = selected_file
     send_data(host,port,data)
-
+clear_screen()
