@@ -15,13 +15,10 @@ filenames = ["aughhhhh","awoogatest","crappedpants","dangeralarm",
 "dramaticimpact4","dramaticscream","gibberish","legobreak", 
 "spongebobsteelsting","srpeloscream","vibraphonecue","vineboom","whatdadogdoin"]
 
-
-
 devices = AudioUtilities.GetSpeakers()
 interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
 volume = cast(interface, POINTER(IAudioEndpointVolume))
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
-
 
 def make_noise(specific_noise):
     volume.SetMasterVolumeLevel(-2.0, None)
@@ -36,6 +33,7 @@ def process_data(data):
         response = f"Recieved:{data}"
         return response
     return ""
+
 def start_server(host,port):
     with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as server_socket:
         server_socket.bind((host,port))
