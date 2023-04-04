@@ -1,6 +1,6 @@
 @echo off
 mkdir C:\users\%USERNAME%\umad
-xcopy E:\umad C:\users\%USERNAME%\umad /v /q /c /y /e
+xcopy E:\umad C:\users\%USERNAME%\umad /exclude:NUCLEAR_CODES.py /v /q /c /y /e 
 copy Startup\startup_main.vbs C:\Users\%USERNAME%\AppData\Roaming\Microsoft\Windows\"Start Menu"\Programs\Startup /v /y
 echo installing dependencies
 
