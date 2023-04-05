@@ -1,10 +1,8 @@
 # server aka recieve
 from comtypes import CLSCTX_ALL
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
-import time
 import random as rand
 from ctypes import cast, POINTER
-import math
 import os
 import winsound
 import socket 
@@ -20,8 +18,6 @@ def get_ip():
     os.system("msg * " + ip)
 get_ip()
 
-
-
 folder_path = "E:/umad/Audio"
 filenames_1 = os.listdir(folder_path)
 filenames = []
@@ -29,8 +25,6 @@ filenames = []
 for file_name in filenames_1:
     filenames.append(file_name.split(".")[0])
     
-
-
 devices = AudioUtilities.GetSpeakers()
 interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
 volume = cast(interface, POINTER(IAudioEndpointVolume))

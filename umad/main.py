@@ -1,7 +1,6 @@
 import time
 import random as rand
 from ctypes import cast, POINTER
-import math
 import os
 import winsound
 
