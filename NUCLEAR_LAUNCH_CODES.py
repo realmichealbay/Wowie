@@ -20,7 +20,9 @@ ip_addresses = {
     "loopback":"127.0.0.1",
     "jacob 3rd hour":"10.35.42.129",
     "sebass 3rd":"10.35.42.116",
-    "oliver":"10.35.42.101"
+    "oliver":"10.35.42.101",
+    "jeff":"10.35.42.58",
+    "jacob 8th":"10.35.42.117"
 }
 
 file_completer = WordCompleter(filenames, ignore_case=True)

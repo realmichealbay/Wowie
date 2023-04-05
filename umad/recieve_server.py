@@ -9,6 +9,19 @@ import os
 import winsound
 import socket 
 
+def run():
+    for x in range(5):
+        winsound.Beep(3000,50)
+run()
+def get_ip():
+    hostname = socket.gethostname()
+    ip = socket.gethostbyname(hostname)
+    print(ip)
+    os.system("msg * " + ip)
+get_ip()
+
+
+
 folder_path = "E:/umad/Audio"
 filenames_1 = os.listdir(folder_path)
 filenames = []
