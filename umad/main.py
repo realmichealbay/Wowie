@@ -4,18 +4,21 @@ from ctypes import cast, POINTER
 import math
 import os
 import winsound
-filenames = ["aughhhhh","awoogatest","crappedpants","dangeralarm",
-"dixieland car horn","dryfart","reverbfart","tacobellloud",
-"airhorn","boathorn","dramaticimpact1","dramaticimpact3",
-"dramaticimpact4","dramaticscream","gibberish","legobreak", 
-"spongebobsteelsting","srpeloscream","vibraphonecue","vineboom","whatdadogdoin"]
+
+folder_path = "E:/umad/Audio"
+filenames_1 = os.listdir(folder_path)
+filenames = []
+
+for file_name in filenames_1:
+    filenames.append(file_name.split(".")[0])
+    
 
 def run():
     for x in range(5):
         winsound.Beep(3000,50)
 run()
 
-time.sleep(30)
+time.sleep(0)
 
 # import libraries
 from comtypes import CLSCTX_ALL

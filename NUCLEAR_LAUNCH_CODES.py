@@ -5,13 +5,15 @@ import platform
 import prompt_toolkit
 from prompt_toolkit import prompt
 from prompt_toolkit.completion import WordCompleter
-from prompt_toolkit.shortcuts import CompleteStyle
+from prompt_toolkit.shortcuts import CompleteStyle\
+    
+folder_path = "E:/umad/Audio"
+filenames_1 = os.listdir(folder_path)
+filenames = []
 
-filenames = ["aughhhhh","awoogatest","crappedpants","dangeralarm",
-"dixieland car horn","dryfart","reverbfart","tacobellloud",
-"airhorn","boathorn","dramaticimpact1","dramaticimpact3",
-"dramaticimpact4","dramaticscream","gibberish","legobreak", 
-"spongebobsteelsting","srpeloscream","vibraphonecue","vineboom","whatdadogdoin"]
+for file_name in filenames_1:
+    filenames.append(file_name.split(".")[0])
+    
 
 ip_addresses = {
     "jacob":"10.35.42.176",
