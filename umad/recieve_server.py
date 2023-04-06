@@ -68,6 +68,7 @@ def start_server(host,port):
     with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as server_socket:
         server_socket.bind((host,port))
         server_socket.listen(1)
+        print(f"Listening on {host}")
         while True:
             conn, addr = server_socket.accept()
             with conn:

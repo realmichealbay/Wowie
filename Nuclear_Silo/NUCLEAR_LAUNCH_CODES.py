@@ -16,7 +16,7 @@ for file_name in filenames_1:
     filenames.append(file_name.split(".")[0])
 
 
-with open("ips.json", "r") as file:
+with open("E:/Nuclear_Silo/ips.json", "r") as file:
     ip_addresses = json.load(file)
 
 file_completer = WordCompleter(filenames, ignore_case=True)
@@ -43,19 +43,19 @@ def send_data(host,port,data):
         print(response)
 
 if __name__ == "__main__":
-    clear_screen()
-    print_ip(ip_addresses)
-    print("-----------------Select ip---------------")
-    selected_ip = prompt(": ",completer=ip_completer,complete_style=CompleteStyle.MULTI_COLUMN)
-    ip = selected_ip
-    host = ip_addresses.get(ip)
-    port = 8005
-    clear_screen()
-    print("-----------------Options-----------------")
-    printfilenames(filenames)
-    print("random")
-    print("-----------------------------------------")
-    selected_file = prompt(": ",completer=file_completer,complete_style=CompleteStyle.MULTI_COLUMN)
-    data = selected_file
-    send_data(host,port,data)
-clear_screen()
+    while True:
+        clear_screen()
+        print_ip(ip_addresses)
+        print("-----------------Select ip---------------")
+        selected_ip = prompt(": ",completer=ip_completer,complete_style=CompleteStyle.MULTI_COLUMN)
+        ip = selected_ip
+        host = ip_addresses.get(ip)
+        port = 8005
+        clear_screen()
+        print("-----------------Options-----------------")
+        printfilenames(filenames)
+        print("random")
+        print("-----------------------------------------")
+        selected_file = prompt(": ",completer=file_completer,complete_style=CompleteStyle.MULTI_COLUMN)
+        data = selected_file
+        send_data(host,port,data)
