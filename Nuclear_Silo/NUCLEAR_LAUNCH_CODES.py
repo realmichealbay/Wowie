@@ -1,4 +1,5 @@
 # client 
+import time
 import json
 import socket
 import os
@@ -43,19 +44,30 @@ def send_data(host,port,data):
         print(response)
 
 if __name__ == "__main__":
+    filenames.append("random")
     while True:
         clear_screen()
         print_ip(ip_addresses)
         print("-----------------Select ip---------------")
-        selected_ip = prompt(": ",completer=ip_completer,complete_style=CompleteStyle.MULTI_COLUMN)
-        ip = selected_ip
+        ip = prompt(": ",completer=ip_completer,complete_style=CompleteStyle.MULTI_COLUMN)
         host = ip_addresses.get(ip)
+        if host == None:
+            continue
         port = 8005
-        clear_screen()
-        print("-----------------Options-----------------")
-        printfilenames(filenames)
-        print("random")
-        print("-----------------------------------------")
-        selected_file = prompt(": ",completer=file_completer,complete_style=CompleteStyle.MULTI_COLUMN)
-        data = selected_file
-        send_data(host,port,data)
+        while True:
+            clear_screen()
+            print("-----------------Options-----------------")
+            printfilenames(filenames)
+            print("-----------------------------------------")
+            selected_file = prompt(": ",completer=file_completer,complete_style=CompleteStyle.MULTI_COLUMN)
+            if selected_file not in filenames:
+                continue
+            data = selected_file
+            try:  
+                send_data(host,port,data)
+                break
+            except Exception as Error:
+                print(f"Failed to send: {data}, {host} @ {port}")
+                time.sleep(2)
+                break
+            
