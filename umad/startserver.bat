@@ -8,5 +8,6 @@ pip install pycaw
 pip install comtypes
 pip install playsound==1.2.2
 pip install mouse
-
+:restart
 python C:\users\%USERNAME%\umad\recieve_server.py
+goto :restart
