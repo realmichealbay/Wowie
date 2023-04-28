@@ -8,6 +8,10 @@ import os
 import winsound
 import socket
 import smtplib 
+import asyncio
+
+
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 with open("cipher.txt","r") as file:
     xor_key = file.read().strip()

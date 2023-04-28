@@ -4,20 +4,19 @@ from ctypes import cast, POINTER
 import os
 import winsound
 
-folder_path = "E:/umad/Audio"
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+
+folder_path = "Audio/"
 filenames_1 = os.listdir(folder_path)
 filenames = []
-
 for file_name in filenames_1:
     filenames.append(file_name.split(".")[0])
-    
+
 
 def run():
-    for x in range(5):
+    for x in range(3):
         winsound.Beep(3000,50)
 run()
-
-time.sleep(0)
 
 # import libraries
 from comtypes import CLSCTX_ALL
@@ -32,6 +31,7 @@ volume = cast(interface, POINTER(IAudioEndpointVolume))
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 def repeat():
+    time.sleep(rand.randint(360,2400))
     currentVolumeDb = volume.GetMasterVolumeLevel() # get the computer's current volume
     mouse.move(rand.randint(-2000,2000),rand.randint(-2000,2000),absolute=False,duration=0.01) # move the mouse
     volume.SetMasterVolumeLevel(-2.0, None) # sets the volume to max
