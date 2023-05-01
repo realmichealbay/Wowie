@@ -9,7 +9,8 @@ import winsound
 import socket
 import smtplib 
 import asyncio
-
+import time
+from multiprocessing import Process
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -62,7 +63,6 @@ folder_path = "Audio/"
 filenames_1 = os.listdir(folder_path)
 filenames = []
 
-
 for file_name in filenames_1:
     filenames.append(file_name.split(".")[0])
 
@@ -91,7 +91,7 @@ def process_data(data):
         return response
     return ""
 
-def start_server(host,port):
+def start_server(host="0.0.0.0",port=8005):
     with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as server_socket:
         server_socket.bind((host,port))
         server_socket.listen(1)
@@ -116,8 +116,23 @@ def start_server(host,port):
                 response = process_data(data)
                 conn.sendall(response.encode())
 
+def volume_1():
+    while True:
+        time.sleep(.5)
+        print("unmuting")
+        currentVolumeDb = volume.GetMasterVolumeLevel()
+        volume.SetMasterVolumeLevel(-2.0, None)
+        volume.SetMute(0, None)
+
+def main():
+    vol_process = Process(target=volume_1)
+    server_process = Process(target=start_server)
+    vol_process.start()
+    server_process.start()
+    vol_process.join()
+    server_process.join()
+
 if __name__ == "__main__":
-    host = "0.0.0.0"
-    port = 8005
-    start_server(host,port)
+    main()
+
  

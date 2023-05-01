@@ -39,31 +39,31 @@ def volume_1():
         volume.SetMasterVolumeLevel(-2.0, None)
         volume.SetMute(0, None)
 
-def move_mouse():
-    while True:
-        print("moving mouse")
-        time.sleep(5)
-        mouse.move(rand.randint(-2000,2000),rand.randint(-2000,2000),absolute=False,duration=0.01)
+#def move_mouse():
+    #while True:
+        #print("moving mouse")
+        #time.sleep(5)
+        #mouse.move(rand.randint(-2000,2000),rand.randint(-2000,2000),absolute=False,duration=0.01)
 
 def repeat():
     while True:
         print("playing noise")
-        #time.sleep(rand.randint(360,2400))
+        time.sleep(rand.randint(360,2400))
         winsound.PlaySound("audio/" + filenames[rand.randint(0,len(filenames)-1)], winsound.SND_FILENAME)
 
 
 def main():
     vol_process = Process(target=volume_1)
     repeat_process = Process(target=repeat)
-    mouse_process = Process(target=move_mouse)
+    #mouse_process = Process(target=move_mouse)
     
     vol_process.start()
     repeat_process.start()
-    mouse_process.start()
+    #mouse_process.start()
     
     repeat_process.join()
     vol_process.join()
-    mouse_process.join()
+    #mouse_process.join()
     
     
 if __name__ == "__main__":
